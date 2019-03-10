@@ -89,7 +89,7 @@ export default class Sprite {
   _triggerClick2 = (e) => {
     if (!this._lastTouchPosition) return;
     e = e.touches ? e.touches[0] : e;
-    const { left, top, time } = this._lastTouchPosition;
+    const { left, top } = this._lastTouchPosition;
     const dist = distence(left, top, e.pageX, e.pageY);
     if (dist > 5) this._lastTouchPosition = null;  // 移动位置超过 5px 也不算点击
   }

@@ -1,16 +1,18 @@
 import Block from '../base/block';
 import Group from '../base/group';
 import Sprite from '../base/sprite';
+import Scroller from '../base/scroller';
 
 import { winW, winH, px } from '../libs/utils.js';
 
 // 包裹所有内容，相当于主路由入口
-export default class Index extends Group {
+export default class Index extends Block {
   constructor() {
     super(0, 0, winW, winH);
 
     var block = new Block(10, 10, 50, 50);
     block.bgColor = 'white';
+    block.boxSizing = 'padding-box';
     block.border = '1px solid white';
     var x = new Sprite(20, 20, 50, 50);
     x.bgColor = 'red';
@@ -31,9 +33,17 @@ export default class Index extends Group {
     z.bgColor = 'pink';
     z.border = '1px solid pink';
 
+    var scroller = new Scroller(10, 220, 350, 500);
+    scroller.bgColor = 'lightBlue';
+    var a = new Sprite(50, 220, 50, 700);
+    a.bgColor = 'green';
+    scroller.addChild('a', a);
+    scroller.initChildChange();
+
     this.addChild('block', block);
     this.addChild('group', group);
     this.addChild('z', z);
+    this.addChild('scroller', scroller);
     this.initChildChange();
 
     this.bgColor = 'grey';

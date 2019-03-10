@@ -2,7 +2,6 @@ import Group from '../base/group'
 
 import { watchValueChange, px } from '../libs/utils.js';
 
-const _canvas = wx.createCanvas();
 
 export default class Block extends Group {
   constructor(x, y, width, height) {
@@ -20,6 +19,7 @@ export default class Block extends Group {
   // 不采用 ctx.clip() 是因为该方法极其卡顿
   customDrawToCanvas(ctx) {
     const { x, y, width, height, bgColor } = this;
+    const _canvas = wx.createCanvas();
     _canvas.width = width;
     _canvas.height = height;
     const _tempCtx = _canvas.getContext('2d');
