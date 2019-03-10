@@ -74,12 +74,7 @@ export default class Group extends Sprite {
     });
   }
 
-  // 至于 Block 是否应该 overflow:hidden 有待商榷
-  // 不采用 ctx.clip() 是因为该方法极其卡顿
   customDrawToCanvas(ctx) {
-    const { x, y, width, height, bgColor } = this;
-    ctx.globalCompositeOperation = 'source-atop';
     this.child.forEach(item => item.drawToCanvas(ctx));
-    ctx.globalCompositeOperation = 'source-over';
   }
 }
