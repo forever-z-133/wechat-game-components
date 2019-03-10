@@ -1,10 +1,11 @@
-import EventBus from './libs/eventbus'
+import Index from './pages/index.js'
 
+import EventBus from './libs/eventbus'
 import { setGlobalCtx } from './libs/utils.js';
 
-let ctx   = canvas.getContext('2d')
 let eventbus = new EventBus()
 
+let ctx   = canvas.getContext('2d')
 setGlobalCtx(ctx);
 
 /**
@@ -17,13 +18,16 @@ export default class Main {
   }
 
   restart() {
-    // 清除上一局的动画
+    this.Index = new Index();
+
     window.cancelAnimationFrame(this.Timer);
     this.Timer = window.requestAnimationFrame(this.loop.bind(this), canvas)
   }
 
   render() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    this.Index.drawToCanvas(ctx);
   }
 
   // 游戏逻辑更新主函数

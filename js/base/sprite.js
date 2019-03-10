@@ -2,7 +2,7 @@
  * 游戏基础的精灵类
  */
 
-import { boxGrowUp } from '../libs/utils.js';
+import { watchValueChange, border2json } from '../libs/utils.js';
 
 export default class Sprite {
   constructor(x = 0, y = 0, width = 0, height = 0) {
@@ -12,7 +12,17 @@ export default class Sprite {
     this.x = x;
     this.y = y;
 
+    watchValueChange(this, 'border', (val) => {
+      const { width, style, color } = border2json(val);
+      this.borderWidth = width;
+      this.borderStyle = style;
+      this.borderColor = color;
+    });
+
     this.bgColor = 'rgba(255, 255, 255, 0)';
+    this.borderWidth = 0;
+    this.borderStyle = 'solid';
+    this.borderColor = 'rgba(255, 255, 255, 0)';
     this.visible = true;
     this.disabled = false;
   }
@@ -30,6 +40,7 @@ export default class Sprite {
     // 绘制背景色
     ctx.save();
     this.drawBgColor(ctx);
+    this.drawBorder(ctx);
     ctx.restore();
 
     // 非公共组件的前置回调
@@ -51,10 +62,23 @@ export default class Sprite {
   }
   // 绘制背景色，可被屏蔽掉
   drawBgColor(ctx) {
-    const { padding = [], bgColor } = this;
-    const { x, y, width, height } = boxGrowUp(this, ...padding);
+    const { x, y, width, height, bgColor } = this;
     ctx.fillStyle = bgColor;
     ctx.fillRect(x, y, width, height);
+  }
+  // 绘制边框，是 box-sizing 为 content-box 模式下的效果
+  // 以后如果使用频繁，可能会加入 padding-box 模式吧
+  drawBorder(ctx) {
+    const { borderWidth, borderStyle, borderColor } = this;
+    let { x, y, width, height } = this;
+    ctx.lineWidth = borderWidth;
+    ctx.strokeStyle = borderColor;
+    borderStyle !== 'solid' && ctx.setLineDash([borderWidth, borderWidth]); // 如果不是 solid 那就是虚线框了
+    x -= borderWidth / 2;
+    y -= borderWidth / 2;
+    width += borderWidth;
+    height += borderWidth;
+    ctx.strokeRect(x, y, width, height);
   }
 
   /**

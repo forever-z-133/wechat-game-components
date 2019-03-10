@@ -1,9 +1,11 @@
 
 let globalCtx = null;
-
 export const setGlobalCtx = (ctx) => {
   globalCtx = ctx;
 }
+
+export const winW = window.innerWidth;
+export const winH = window.innerHeight;
 
 /**
  * 莫名不能根据 arguments.length 来判断，
@@ -110,7 +112,7 @@ export const isTransparent = (color) => {
 export const border2json = (borderStr) => {
   const temp = borderStr ? borderStr.split(' ') : [];
   const [width = 0, style = 'solid', color = 'rgba(0, 0, 0, 0)'] = temp;
-  return { width, style, color };
+  return { width: parseInt(width), style, color };
 }
 export const background2json = (backgroundStr) => {
   const temp = backgroundStr.split('/'); // 如果有 bg-size 先拆这个
