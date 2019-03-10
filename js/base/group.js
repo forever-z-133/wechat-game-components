@@ -76,14 +76,9 @@ export default class Group extends Sprite {
 
   // 至于 Block 是否应该 overflow:hidden 有待商榷
   // 不采用 ctx.clip() 是因为该方法极其卡顿
-  // 由于 globalCompositeOperation 的缺陷，必须得有背景色才能实现裁剪效果，贼尴尬，还在思考如何规避
   customDrawToCanvas(ctx) {
     const { x, y, width, height, bgColor } = this;
-    ctx.fillStyle = isTransparent(bgColor) ? '#fff' : bgColor;
-    ctx.fillRect(x, y, width, height);
     ctx.globalCompositeOperation = 'source-atop';
-  }
-  customDrawToCanvas2(ctx) {
     this.child.forEach(item => item.drawToCanvas(ctx));
     ctx.globalCompositeOperation = 'source-over';
   }

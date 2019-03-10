@@ -39,16 +39,23 @@ export const anim = function(start = 0, to = 0, duration = 0, callback) {
 }
 
 /**
- * 扩大容器对象尺寸
+ * 支持 padding: 0; padding: 0 0; padding: 0 0 0; padding: 0 0 0 0; 四种形式
+ * 然后可返回 paddingLeft 那些
  */
-export const boxGrowUp = (obj, ...padding) => {
+const fourArgumentsLikePadding = (...padding) => {
   let top, right, bottom, left;
   if (padding.length === 0) [top = 0, right = 0, bottom = 0, left = 0] = padding;
   if (padding.length === 1) [top = 0, right = top, bottom = top, left = top] = padding;
   if (padding.length === 2) [top = 0, right, bottom = top, left = right] = padding;
   if (padding.length === 3) [top = 0, right, bottom, left = right] = padding;
   if (padding.length === 4) [top = 0, right, bottom, left] = padding;
-
+  return { top, right, bottom, left };
+}
+/**
+ * 扩大容器对象尺寸
+ */
+export const boxGrowUp = (obj, ...padding) => {
+  const { top, right, bottom, left } = fourArgumentsLikePadding(...padding);
   let { x, y, width, height } = obj;
   x -= left; y -= top; width += left + right; height += top + bottom;
   return { x, y, width, height };

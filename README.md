@@ -15,13 +15,13 @@
 外放函数：`addChild` `removeChild` `emptyChild` `initChildChange`  
 
 ### Block 组件
-和 `Group` 组件一样是盒子组件，但宽高类似 CSS 的 `block` 的处理（定宽定高）。    
+是继承了 `Group` 组件的盒子组件，但宽高类似 CSS 的 `block` 的处理（定宽定高）。    
 入参：`x, y, width, height`（注意 x y 的设置时机与 Group 组件是不同的）  
 方法与 `Group` 一致。另外 `Block` 带有 CSS 的 `overflow:hidden` 效果。  
 
 ### Scroller 组件
-也是类似 `Block` 组件的盒子容器，但可以滑动了。     
-入参：`x, y, width, maxHeight`  
+是继承了 `Block` 组件的盒子组件，可以滑动了。     
+入参：`x, y, width, height`  
 属性肯定还会再加，但暂时没打算更新  
 外放函数再另加 `scrollTop`   
 

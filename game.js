@@ -10,4 +10,8 @@ window.test = function (length, ...args) {
   }
 }
 
+window.getName = function(that) {
+  return that.constructor.toString().split(/[ \()]/)[1];
+}
+
 new Main()
