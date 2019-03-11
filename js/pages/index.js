@@ -2,6 +2,7 @@ import Block from '../base/block';
 import Group from '../base/group';
 import Sprite from '../base/sprite';
 import Scroller from '../base/scroller';
+import Text from '../base/text';
 
 import { winW, winH, px } from '../libs/utils.js';
 
@@ -37,13 +38,33 @@ export default class Index extends Block {
     scroller.bgColor = 'lightBlue';
     var a = new Sprite(50, 220, 50, 700);
     a.bgColor = 'green';
+    a.boxSizing = 'padding-box';
+    a.border = '5px solid black';
     scroller.addChild('a', a);
     scroller.initChildChange();
+
+    var w1 = new Text('0.00', 100, 10);
+    w1.color = 'gold';
+    w1.border = '1px solid gold';
+
+    var w2 = new Text('01234567890123456789', 100, w1.y + w1.height + 10);
+    w2.maxWidth = 50;
+    w2.color = 'lightblue';
+    w2.border = '1px solid lightblue';
+
+    var w3 = new Text('01234567890123456789', 100, w2.y + w2.height + 10);
+    w3.maxWidth = 85;
+    w3.textWrap = true;
+    w3.color = 'lightblue';
+    w3.border = '1px solid lightblue';
 
     this.addChild('block', block);
     this.addChild('group', group);
     this.addChild('z', z);
     this.addChild('scroller', scroller);
+    this.addChild('w1', w1);
+    this.addChild('w2', w2);
+    this.addChild('w3', w3);
     this.initChildChange();
 
     this.bgColor = 'grey';
@@ -52,5 +73,12 @@ export default class Index extends Block {
     x.onClick = () => { console.log('x') }
     y.bindClickEvent(() => { console.log('xx') });
     z.bindClickEvent(() => { console.log('xxx') });
+
+    this.w1 = w1;
+  }
+
+  beforeDraw() {
+    const { text } = this.w1;
+    this.w1.text = Number(text) + 1;
   }
 }
