@@ -46,12 +46,12 @@ export default class Scroller extends Block {
 
     const { y: min, height } = this;
     const { y, height: childHeight } = this.childSize;
-    const max = childHeight - height - min;
+    const max = min + height - childHeight;
 
     if (y > min) {
       this.scrollTop(min, 300);
-    } else if (y < 0) {
-      this.scrollTop(-max, 300);
+    } else if (y < max) {
+      this.scrollTop(max, 300);
     } else {
       // 弹性滑动还没开始搞
     }

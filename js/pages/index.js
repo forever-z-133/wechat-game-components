@@ -3,6 +3,9 @@ import Group from '../base/group';
 import Sprite from '../base/sprite';
 import Scroller from '../base/scroller';
 import Text from '../base/text';
+import Img from '../base/img';
+
+const imgSrc ='images/bg.png';
 
 import { winW, winH, px } from '../libs/utils.js';
 
@@ -22,13 +25,18 @@ export default class Index extends Block {
     block.initChildChange();
 
     var group = new Group();
-    // group.bgColor = 'yellow';
+    group.bgColor = 'yellow';
     group.border = '1px solid yellow';
     var y = new Sprite(150, 150, 50, 50);
     y.bgColor = 'blue';
     y.border = '1px solid blue';
+    var b = new Sprite(170, 170, 50, 50);
+    b.bgColor = 'orange';
+    b.border = '1px solid orange';
     group.addChild('y', y);
+    group.addChild('b', b);
     group.initChildChange();
+    group.y -= 20;
 
     var z = new Sprite(200, 50, 50, 50);
     z.bgColor = 'pink';
@@ -58,6 +66,11 @@ export default class Index extends Block {
     w3.color = 'lightblue';
     w3.border = '1px solid lightblue';
 
+    var img = new Img(imgSrc, 270, 50, 100, 100);
+    img.size = '50% 90%';
+    img.position = 'center';
+    img.border = '1px solid #fff';
+
     this.addChild('block', block);
     this.addChild('group', group);
     this.addChild('z', z);
@@ -65,6 +78,7 @@ export default class Index extends Block {
     this.addChild('w1', w1);
     this.addChild('w2', w2);
     this.addChild('w3', w3);
+    this.addChild('img', img);
     this.initChildChange();
 
     this.bgColor = 'grey';
