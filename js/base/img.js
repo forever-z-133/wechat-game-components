@@ -43,7 +43,6 @@ export default class Img extends Sprite {
     const { img, x, y, width, height } = this;
     const { x: newImgX, y: newImgY, width: newImgWidth, height: newImgHeight } = this.childSize;
     if (!img) return;
-    window.test(2, x, y, width, height, newImgX, newImgY, newImgWidth, newImgHeight)
 
     const _canvas = wx.createCanvas();
     _canvas.width = width;

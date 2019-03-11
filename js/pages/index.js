@@ -4,6 +4,7 @@ import Sprite from '../base/sprite';
 import Scroller from '../base/scroller';
 import Text from '../base/text';
 import Img from '../base/img';
+import { Shape, Rect, Circle } from '../base/shape';
 
 const imgSrc ='images/bg.png';
 
@@ -48,7 +49,14 @@ export default class Index extends Block {
     a.bgColor = 'green';
     a.boxSizing = 'padding-box';
     a.border = '5px solid black';
+    var rect = new Rect(105, 250, 100, 50, 10);
+    rect.bgColor = 'red';
+    rect.border = '5px solid #fff';
+    var circle = new Circle(105, 300, 50);
+    circle.bgColor = '#000';
     scroller.addChild('a', a);
+    scroller.addChild('rect', rect);
+    scroller.addChild('circle', circle);
     scroller.initChildChange();
 
     var w1 = new Text('0.00', 100, 10);
@@ -89,10 +97,14 @@ export default class Index extends Block {
     z.bindClickEvent(() => { console.log('xxx') });
 
     this.w1 = w1;
+    this.rect = rect;
   }
 
   beforeDraw() {
     const { text } = this.w1;
     this.w1.text = Number(text) + 1;
+
+    // const { radius } = this.rect;
+    // this.rect.radius = (radius + 1) % 50;
   }
 }

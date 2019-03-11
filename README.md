@@ -43,10 +43,11 @@
 其他形状可继承与 `Shape` 组件在 `customDrawShape` 绘制线条，之后会自动加上背景和边框的。  
 
 # 工具函数介绍
-### distence(x1, y1, x2, y2) 求距离  
-### anim(start, to, duration, callback) 运动动画  
-### px(designWidth) 传入 750 即为屏宽  
-### getTextWidth(text, fontSize) 获取文字宽度  
-### watchValueChange(obj, key, callback, defaultValue) 监听对象某属性变化做出反应  
-### money(val, unit, fixed) 数字转为 1,234.00 格式的金钱字符串  
-### time(val) 毫秒数转为 00:00:00 格式的时间字符串   
+| 函数名 | 简介 |
+| - | - |
+| distence(x1, y1, x2, y2) | 求两点距离 |
+| anim(start, to, duration, callback) | 运动动画 |
+| px(designWidth) | 传入 750 即为屏宽 |
+| getTextWidth(text, fontSize) | 获取文字宽度 |
+| watchValueChange(obj, key, callback, defaultValue) | 监听对象某属性变化做出反应 |
+| money(val, unit, fixed) | 数字转为 1,234.00 格式的金钱字符串 |

@@ -61,10 +61,13 @@ export default class Scroller extends Block {
   scrollTop(top, duration, easing) {
     const { y = 0 } = this.childSize;
     anim(y, top, duration, (now) => {
+      const offset = now - this.childSize.y;
       // 子级整块远动
-      this.childSize.y += now - this.childSize.y;
+      this.childSize.y += offset;
       // 子级中的每块都运动
-      this.child.forEach(item => { item.y = now });
+      this.child.forEach(item => {
+        item.y += offset;
+      });
     });
   }
 }

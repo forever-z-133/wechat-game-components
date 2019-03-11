@@ -133,3 +133,10 @@ export const background2json = (backgroundStr) => {
 export const money = (val = 0, unit = ',', fixed = 2) => {
   return (Number(val) || 0).toFixed(fixed).replace(/\B(?=(\d{3})+(?!\d))/g, unit);
 }
+
+/**
+ * 角度转弧度，用于 arc 画圆时快速计算
+ */
+export const deg2rad = (deg = 0) => {
+  return deg / 180 * Math.PI;
+}
