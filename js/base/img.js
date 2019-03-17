@@ -1,6 +1,6 @@
 import Sprite from './sprite.js';
 
-import { px, watchValueChange, isTransparent } from '../libs/utils.js';
+import { watchValueChange, canvasClip } from '../libs/utils.js';
 
 export default class Img extends Sprite {
   constructor(imgSrc = '', x, y, width, height, imgWidth = 0, imgHeight = 0) {
@@ -44,14 +44,9 @@ export default class Img extends Sprite {
     const { x: newImgX, y: newImgY, width: newImgWidth, height: newImgHeight } = this.childSize;
     if (!img) return;
 
-    const _canvas = wx.createCanvas();
-    _canvas.width = width;
-    _canvas.height = height;
-    const _tempCtx = _canvas.getContext('2d');
-    _tempCtx.translate(-x, -y);
-    _tempCtx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
-    // this.drawMoreRepeat(ctx);
-    ctx.drawImage(_canvas, x, y, width, height);
+    canvasClip(ctx, x, y, width, height, (_tempCtx) => {
+      _tempCtx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
+    });
   }
 
   resize() {

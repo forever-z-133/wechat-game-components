@@ -1,6 +1,6 @@
 import Group from '../base/group'
 
-import { watchValueChange, px } from '../libs/utils.js';
+import { canvasClip } from '../libs/utils.js';
 
 
 export default class Block extends Group {
@@ -19,12 +19,8 @@ export default class Block extends Group {
   // 不采用 ctx.clip() 是因为该方法极其卡顿
   customDrawToCanvas(ctx) {
     const { x, y, width, height, bgColor } = this;
-    const _canvas = wx.createCanvas();
-    _canvas.width = width;
-    _canvas.height = height;
-    const _tempCtx = _canvas.getContext('2d');
-    _tempCtx.translate(-x, -y);
-    this.child.forEach(item => { item.drawToCanvas(_tempCtx) });
-    ctx.drawImage(_canvas, x, y, width, height);
+    canvasClip(ctx, x, y, width, height, (_tempCtx) => {
+      this.child.forEach(item => { item.drawToCanvas(_tempCtx) });
+    });
   }
 }

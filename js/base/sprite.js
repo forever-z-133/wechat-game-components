@@ -20,7 +20,7 @@ export default class Sprite {
     this.visible = true;
     this.disabled = false;
 
-    ['border', 'boxSizing'].forEach(key => {
+    ['border'].forEach(key => {
       watchValueChange(this, key, (val) => {
         const { width, style, color } = border2json(val);
         this.borderWidth = width;

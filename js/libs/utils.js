@@ -106,6 +106,20 @@ export const watchValueChange = (obj, key, callback, defaultValue) => {
 }
 
 /**
+ * canvas clip() 的替代方案
+ * 由于 clip 卡顿严重，globalCompositeOperation 又有背景色限制
+ */
+export const canvasClip = (ctx, x, y, width, height, func) => {
+  const _canvas = wx.createCanvas();
+  _canvas.width = width;
+  _canvas.height = height;
+  const _tempCtx = _canvas.getContext('2d');
+  _tempCtx.translate(-x, -y);
+  func && func(_tempCtx);
+  ctx.drawImage(_canvas, x, y, width, height);
+}
+
+/**
  * 判断是否为透明色，在剪切效果时有用
  */
 export const isTransparent = (color) => {
