@@ -20,7 +20,7 @@ export default class Block extends Group {
   customDrawToCanvas(ctx) {
     const { x, y, width, height, bgColor } = this;
     canvasClip(ctx, x, y, width, height, (_tempCtx) => {
-      this.child.forEach(item => { item.drawToCanvas(_tempCtx) });
+      this.child.forEach(item => { item && item.drawToCanvas(_tempCtx) });
     });
   }
 }

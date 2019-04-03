@@ -29,6 +29,7 @@ export default class Img extends Sprite {
         console.log(err);
         this.resize();
       }
+      this.img = img;
     });
     ['width', 'height', 'size', 'position'].forEach(key => {
       watchValueChange(this, key, (val) => {
