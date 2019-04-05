@@ -24,6 +24,7 @@ export default class IndexHeader extends Block {
     // 头像
     const _headImage = new Img(imgSrc.head, px(40), px(25), px(150), px(150));
     this.addChild('_headImage', _headImage);
+    _headImage.bindClickEvent(() => console.log('xxx'));
 
     // 总计
     const _unit = new Text('$', px(210), px(40));
@@ -40,7 +41,7 @@ export default class IndexHeader extends Block {
     let activeCount = 0;
     const _countGroup = new Group();
     countConfig.forEach((item, index) => {
-      const _count = new Img(item.imgSrc, px(750 - 40 - 100), px(80), px(100), px(100));
+      const _count = new Img(item.imgSrc, px(750 - 40 - 100), px(90), px(100), px(100));
       _count.size = 'contain';
       _count.position = 'center';
       _count.visible = false;
@@ -68,6 +69,7 @@ export default class IndexHeader extends Block {
     _goldValue.color = '#fff';
     _goldValue.maxWidth = px(90);
     this.addChild('_goldValue', _goldValue);
+    _goldValue.bindClickEvent(() => console.log('xxx'));
 
     // 鈔票
     const _cashIcon = new Img(imgSrc.cash, px(390), px(200 - 25 - 50), px(50), px(50));

@@ -36,6 +36,11 @@ export default class Img extends Sprite {
         this.resize();
       });
     });
+    ['x', 'y'].forEach(key => {
+      watchValueChange(this, key, (val) => {
+        this.resize();
+      }, 0);
+    });
 
     this.imgSrc = imgSrc;
   }
