@@ -8,11 +8,11 @@ import { winW, winH, px } from '../libs/utils.js';
 export default class Pages extends Block {
   constructor() {
     super(0, 0, winW, winH);
+    this.bgColor = '#fff';
 
+    // 首页
     this.addChild('index', new Index());
 
     this.initChildChange();
-
-    this.bgColor = '#fff';
   }
 }

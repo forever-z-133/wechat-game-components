@@ -45,19 +45,25 @@ export default class Img extends Sprite {
     const { x: newImgX, y: newImgY, width: newImgWidth, height: newImgHeight } = this.childSize;
     if (!img) return;
 
-    canvasClip(ctx, x, y, width, height, (_tempCtx) => {
-      _tempCtx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
-    });
+    // 要绘制的图片若超出了容器，则采用裁剪
+    if (x > newImgX || y > newImgY || width < newImgWidth || height < newImgHeight) {
+      return canvasClip(ctx, x, y, width, height, (_tempCtx) => {
+        _tempCtx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
+      });
+    }
+
+    ctx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
   }
 
   resize() {
     const { width, height } = this.getImgRealSize();
+    this.childSize = { ...this.childSize, width, height };
     const { newImgX: x, newImgY: y } = this.getImgPosition();
-    this.childSize = { x, y, width, height };
+    this.childSize = { ...this.childSize, x, y };
   }
 
   /**
-   * 计算图片实际宽高，比如 full cover contian 或者 50 10%
+   * 计算图片实际宽高，比如 full cover contian 或者 50 50px 10%
    */
   getImgRealSize() {
     const { width, height, imgWidth, imgHeight, size } = this;

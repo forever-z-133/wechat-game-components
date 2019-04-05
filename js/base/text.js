@@ -1,7 +1,15 @@
 import Sprite from './sprite.js';
 
-const fontFamily = 'Georgia,"Times New Roman",Times,SimSun,FontAwesome,serif';
+// const fontFamily = 'Georgia,"Times New Roman",Times,SimSun,FontAwesome,serif';
+const fontFamily = wx.loadFont('./fonts/zhanku.ttf');
 import { getTextWidth, watchValueChange } from '../libs/utils.js';
+
+wx.downloadFile({
+  url: './fonts/zhanku.ttf', // 仅为示例，并非真实的资源
+  complete(res) {
+    console.log(res);
+  }
+})
 
 export default class Text extends Sprite {
   constructor(text = '', x, y) {
