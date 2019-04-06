@@ -3,7 +3,7 @@ import Sprite from '../base/sprite'
 import { border2json, deg2rad } from '../libs/utils.js';
 
 // 把 fill 和 stroke 的部分拆出来，我也不知道这样好不好
-class Shape extends Sprite {
+export class Shape extends Sprite {
   constructor(...args) {
     super(...args);
   }

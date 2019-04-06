@@ -37,6 +37,26 @@ export const anim = function(start = 0, to = 0, duration = 0, callback) {
     animTimer = window.requestAnimationFrame(run);
   })();
 }
+export const AnimTool = function() {
+  let animTimer = null;
+  const start = function (start = 0, to = 0, duration = 0, callback) {
+    var time = Date.now(); stop();
+    (function run() {
+      var per = Math.min(1, (Date.now() - time) / duration);
+      if (per >= 1) return callback && callback(to, 1);
+      var now = start + (to - start) * per;
+      callback && callback(now, per);
+      animTimer = window.requestAnimationFrame(run);
+    })();
+  }
+  const stop = function () {
+    animTimer && window.cancelAnimationFrame(animTimer);
+  }
+  return {
+    start,
+    stop
+  }
+}
 
 /**
  * 支持 padding: 0; padding: 0 0; padding: 0 0 0; padding: 0 0 0 0; 四种形式
