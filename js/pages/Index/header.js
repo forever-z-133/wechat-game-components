@@ -13,7 +13,7 @@ const imgSrc = {
 const countConfig = [
   { key: '10', imgSrc: 'images/index-header/4.png' },
   { key: '100', imgSrc: 'images/index-header/5.png' },
-  { key: 'max', imgSrc: 'images/index-header/6.png' }
+  { key: 'MAX', imgSrc: 'images/index-header/6.png' }
 ];
 
 export default class IndexHeader extends Block {
@@ -24,7 +24,9 @@ export default class IndexHeader extends Block {
     // 头像
     const _headImage = new Img(imgSrc.head, px(40), px(25), px(150), px(150));
     this.addChild('_headImage', _headImage);
-    _headImage.bindClickEvent(() => console.log('xxx'));
+    _headImage.bindClickEvent(() => {
+      window.eventbus.emit('showUserPage');
+    });
 
     // 总计
     const _unit = new Text('$', px(210), px(40));
@@ -57,6 +59,7 @@ export default class IndexHeader extends Block {
         else item.visible = false;
       });
       activeCount = newIndex;
+      window.eventbus.emit('buyCountChange', countConfig[activeCount]);
     });
 
     // 金币

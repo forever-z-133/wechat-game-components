@@ -67,7 +67,7 @@ export default class Group extends Sprite {
         this.child.forEach(item => item[key] += offset);
       }, 0);
     });
-    ['disabled', 'visible'].forEach(key => {
+    ['disabled'].forEach(key => {
       watchValueChange(this, key, (val) => {
         this.child.forEach(item => item[key] = val);
       });

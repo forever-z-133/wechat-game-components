@@ -3,7 +3,8 @@ import Index from './pages/index.js'
 import EventBus from './libs/eventbus'
 import { setGlobalCtx } from './libs/utils.js';
 
-let eventbus = new EventBus()
+const eventbus = new EventBus();
+window.eventbus = eventbus;
 
 let ctx   = canvas.getContext('2d')
 setGlobalCtx(ctx);

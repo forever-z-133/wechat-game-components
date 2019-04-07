@@ -4,7 +4,7 @@ import Img from '../../base/img';
 import Text from '../../base/text';
 import { Shape } from '../../base/shape';
 
-import { winH, px, money, watchValueChange, AnimTool } from '../../libs/utils.js';
+import { winH, px, money, watchValueChange, AnimTool, second2str } from '../../libs/utils.js';
 
 const imgSrc = {
   tips: 'images/others/2.png',
@@ -92,12 +92,20 @@ class ListItem extends Block {
     const _box2Y = _progress.height + px(5);
     const _buyCount = new Img(imgSrc.count, _boxX, y + _box2Y, _boxW - px(130), height - _box2Y);
     _item.addChild('_buyCount', _buyCount);
-    _buyCount.bindClickEvent(() => console.log('xxx'));
+    const _buyCountValue = new Text('10', _boxX + px(35), y + height - px(32));
+    _buyCountValue.fontSize = px(20);
+    _buyCountValue.color = '#fff';
+    _item.addChild('_buyCountValue', _buyCountValue);
+    _buyCount.bindClickEvent(() => {
+    });
+    window.eventbus.on('buyCountChange', ({ key }) => {
+      _buyCountValue.text = key;
+    });
 
     // 时间
     const _wasteTime = new Img(imgSrc.time, _boxX + _buyCount.width + px(5), y + _box2Y, px(125), height - _box2Y);
     _item.addChild('_wasteTime', _wasteTime);
-    const _timeValue = new Text('00:00:00', _wasteTime.x, _wasteTime.y + px(20));
+    const _timeValue = new Text(second2str(data.duration), _wasteTime.x, _wasteTime.y + px(15));
     _timeValue.fontSize = px(24);
     _timeValue.color = '#fff';
     _timeValue.maxWidth = _wasteTime.width;
@@ -106,8 +114,6 @@ class ListItem extends Block {
 
     this.addChild('_item', _item);
     _item.initChildChange();
-    _item.visible = data.active;
-    _item.disabled = !data.active;
     // ------- end 主 Item 的构成完成
 
     // ------- 未启用 Item 的构成
@@ -132,15 +138,28 @@ class ListItem extends Block {
 
     this.addChild('_disableItem', _disableItem);
     _disableItem.initChildChange();
-    _disableItem.visible = !data.active;
-    _disableItem.disabled = data.active;
-    _disableItem.bindClickEvent(() => console.log('xxx'));
+    _disableItem.bindClickEvent(() => {
+      this.changeItemState(_item, _disableItem);
+    });
     // ------- end 未启用 Item 的构成
 
-    // 动画相关
+    // ---- 动画相关
     const animTool = new AnimTool();
+    watchValueChange(_item, 'visible', () => {
+      this.startTheProgress(animTool, _progressValue, data.duration);
+    });
+
+    // 最终显示与否
+    _item.visible = data.active;
+    _item.disabled = !data.active;
+    _disableItem.visible = !data.active;
+    _disableItem.disabled = data.active;
+    
+    this.initChildChange();
+  }
+  startTheProgress(animTool, _progressValue, duration) {
     (function progressLoop() {
-      animTool.start(0, 100, data.duration, (now, per) => {
+      animTool.start(0, 100, duration, (now, per) => {
         _progressValue.value = now;
         if (per === 1) {
           progressLoop.call(this);
@@ -148,11 +167,15 @@ class ListItem extends Block {
         }
       });
     }.bind(this))();
-    
-    this.initChildChange();
   }
   progressEnded() {
     // console.log('x')
+  }
+  changeItemState(_item, _disableItem) {
+    _item.visible = !_item.visible;
+    _item.disabled = !_item.disabled;
+    _disableItem.visible = !_disableItem.visible;
+    _disableItem.disabled = !_disableItem.disabled;
   }
 }
 
