@@ -72,7 +72,7 @@ export default class Sprite {
   // 元素的点击事件，由于没有原生 click 因此只能用 touch 事件模拟了
   // 最终没有选择所有组件都绑上 onClick，以后再商榷吧
   bindClickEvent(fn) {
-    this.onClick = fn;
+    if (fn) this.onClick = fn;
     this._lastTouchPosition = null;
     canvas.addEventListener('touchstart', this._triggerClick1);
     canvas.addEventListener('touchmove', this._triggerClick2);
@@ -80,6 +80,7 @@ export default class Sprite {
   }
   _triggerClick1 = (e) => {
     if (this.disabled) return;
+    if (!this.visible) return;
     e = e.touches ? e.touches[0] : e;
     const { pageX: left, pageY: top } = e;
     var inner = this.checkIsOnThisSprite(left, top);

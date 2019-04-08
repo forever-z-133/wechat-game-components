@@ -26,17 +26,37 @@ export const anim = function(start = 0, to = 0, duration = 0, callback) {
     return callback && callback(to, 1);
   }
 
-  var time = Date.now();
+  const time = Date.now();
   animTimer && window.cancelAnimationFrame(animTimer);
   
   (function run() {
-    var per = Math.min(1, (Date.now() - time) / duration);
+    const per = Math.min(1, (Date.now() - time) / duration);
     if (per >= 1) return callback && callback(to, 1);
-    var now = start + (to - start) * per;
+    const now = start + (to - start) * per;
     callback && callback(now, per);
     animTimer = window.requestAnimationFrame(run);
   })();
 }
+export const AnimTool = function () {
+  let animTimer = null;
+  const start = function (start = 0, to = 0, duration = 0, callback) {
+    var time = Date.now(); stop();
+    (function run() {
+      var per = Math.min(1, (Date.now() - time) / duration);
+      if (per >= 1) return callback && callback(to, 1);
+      var now = start + (to - start) * per;
+      callback && callback(now, per);
+      animTimer = window.requestAnimationFrame(run);
+    })();
+  }
+  const stop = function () {
+    animTimer && window.cancelAnimationFrame(animTimer);
+  }
+  return {
+    start, stop
+  }
+}
+
 
 /**
  * 支持 padding: 0; padding: 0 0; padding: 0 0 0; padding: 0 0 0 0; 四种形式
@@ -79,7 +99,6 @@ export const px = px2rem(window.innerWidth, 750)
  */
 export const getTextWidth = (text = '', fontSize = 16) => {
   if (!text) return 0;
-
   return globalCtx ? globalCtx.measureText(text).width / 10 * fontSize : 0;
 }
 
@@ -141,11 +160,30 @@ export const background2json = (backgroundStr) => {
   return { color, image, position, size, repeat };
 }
 
+// 前置补零
+export const addZero = function (num, len = 2) {
+  let i = (num + "").length;
+  while (i++ < len) num = "0" + num;
+  return num;
+}
+
 /**
  * 转金钱格式 1,234,000.00 那种
  */
 export const money = (val = 0, unit = ',', fixed = 2) => {
   return (Number(val) || 0).toFixed(fixed).replace(/\B(?=(\d{3})+(?!\d))/g, unit);
+}
+
+/**
+ * 秒数转字符串
+ */
+export const second2str = (value) => {
+  value = value / 1000 >> 0;
+  const hour = (value / 60 / 60) >> 0;
+  const minute = (value / 60) >> 0;
+  const second = value % 60 >> 0;
+  const result = [hour, minute, second].map(x => addZero(x)).join(':');
+  return result;
 }
 
 /**
