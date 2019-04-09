@@ -1,37 +1,41 @@
 import Sprite from '../base/sprite'
 
-import { watchValueChange, isTransparent } from '../libs/utils.js';
-
-let KeyMap = {};
+import { watchValueChange, guid } from '../libs/utils.js';
 
 export default class Group extends Sprite {
   constructor() {
     super();
 
+    this.id = guid();
+    window.hashMap[this.id] = this;
+    
     this.child = [];
     // 用来存内部元素的宽高，比如 block scroller 和 img
-    this.childSize = { x: 0, y: 0, width: 0, height: 0};
+    this.childSize = { x: 0, y: 0, width: 0, height: 0 };
   }
 
   //------------ 增删子元素
-  addChild(key, el) {
-    if (key in KeyMap) {
-      this.removeChild(key);
-    }
+  addChild(el, description) {
+    const _id = guid();
+    el.id = _id;
+    el.parentId = this.id;
+    el.description = description;
+    window.hashMap[_id] = el;
     this.child.push(el);
-    KeyMap[key] = el;
     this.childReSize();
   }
-  removeChild(key) {
+  removeChild(id) {
     this.child = this.child.filter((item) => {
-      return KeyMap[key] !== item;
+      return id !== item.id;
     });
-    delete KeyMap[key];
+    delete window.hashMap[id];
     this.childReSize();
   }
   emptyChild() {
-    this.child = [];
-    KeyMap = {};
+    this.child.forEach((item) => {
+      delete window.hashMap[item.id];
+    })
+    this.child.length = 0;
     this.childReSize();
   }
 

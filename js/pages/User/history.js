@@ -20,7 +20,7 @@ export default class UserHistory extends Block {
     // 分割线
     const _line = new Rect(x, y + px(40), width, px(5), px(5));
     _line.bgColor = '#5C2C19'
-    this.addChild('_line', _line);
+    this.addChild(_line);
 
     // 四个框框
     itemConfig.forEach(({ name, value }, index) => {
@@ -29,19 +29,19 @@ export default class UserHistory extends Block {
       const _rect = new Rect(x + 2, __y + 2, width - 4, px(150) - 4, px(10));
       _rect.bgColor = '#ECF2E1';
       _rect.border = '2px solid #7D6A4B';
-      _box.addChild('_rect', _rect);
+      _box.addChild(_rect);
       const _name = new Text(name, x + px(20), __y + px(25));
       _name.maxWidth = width - px(40);
       _name.textAlign = 'center';
       _name.fontSize = px(40);
       _name.color = '#718749';
-      _box.addChild('_name', _name);
+      _box.addChild(_name);
       const _value = new Text(money(value), x + px(20), __y + px(80));
       _value.maxWidth = width - px(40);
       _value.textAlign = 'center';
       _value.fontSize = px(34);
-      _box.addChild('_value', _value);
-      this.addChild('_box' + index, _box);
+      _box.addChild(_value);
+      this.addChild(_box);
     });
 
     this.initChildChange();

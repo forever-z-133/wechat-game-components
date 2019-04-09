@@ -193,3 +193,12 @@ export const second2str = (value) => {
 export const deg2rad = (deg = 0) => {
   return deg / 180 * Math.PI;
 }
+
+/**
+ * 生成 hashMap 中唯一的 id，此方法仅支持 1e14 个组件哈
+ */
+export const guid = () => {
+  const _id = Math.random().toString(16).slice(2);
+  if (_id in window.hashMap) return guid();
+  return _id;
+}

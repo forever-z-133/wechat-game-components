@@ -80,6 +80,7 @@ export default class Sprite {
   }
   _triggerClick1 = (e) => {
     if (this.disabled) return;
+    if (!this.visible) return;
     e = e.touches ? e.touches[0] : e;
     const { pageX: left, pageY: top } = e;
     var inner = this.checkIsOnThisSprite(left, top);
@@ -127,5 +128,20 @@ export default class Sprite {
     let spY = sp.y + sp.height / 2;
 
     return this.checkIsOnThisSprite(spX, spY, deviation);
+  }
+
+  // 父子兄弟组件的获取
+  getParent() {
+    return window.hashMap[this.parentId];
+  }
+  getParents(fn) {
+    let parentId = this.parentId
+    while (parentId) {
+      const parent = this.getParent();
+      if (!parent) return;
+      const stop = fn && fn(parent);
+      if (stop) return;
+      parentId = parent.parentId;
+    }
   }
 }

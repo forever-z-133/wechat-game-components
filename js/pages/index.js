@@ -18,12 +18,12 @@ export default class Pages extends Block {
 
     // 背景图
     const _mainBg = new Img(imgSrc.bg, 0, 0, winW, winH);
-    this.addChild('_mainBg', _mainBg);
+    this.addChild(_mainBg);
 
     // 首页
-    this.addChild('index', new Index());
+    this.addChild(new Index());
     // 角色页
-    this.addChild('user', new UserPage());
+    this.addChild(new UserPage());
 
     this.initChildChange();
   }

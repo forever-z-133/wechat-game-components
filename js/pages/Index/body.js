@@ -35,7 +35,7 @@ class ListItem extends Block {
     const _imgWidth = height - px(20);
     const _imgY = y + (height - _imgWidth) / 2;
     const _img = new Img(data.icon, x, _imgY, _imgWidth, _imgWidth);
-    _item.addChild('_img', _img);
+    _item.addChild(_img);
 
     // 右上进度条与当前单价
     const _boxX = x + _imgWidth + px(20);
@@ -69,7 +69,7 @@ class ListItem extends Block {
     _progress.customDrawShape = function(ctx) {
       _progressRender.call(this, ctx, 100);
     }
-    _item.addChild('_progress', _progress);
+    _item.addChild(_progress);
     // 进度条绿色进度
     const _progressValue = new Shape(_boxX + 1, y + 1, _boxW - 2, px(70) - 2);
     _progressValue.bgColor = '#4DFF58';
@@ -77,25 +77,25 @@ class ListItem extends Block {
     _progressValue.customDrawShape = function (ctx) {
       _progressRender.call(this, ctx, this.value);
     }
-    _item.addChild('_progressValue', _progressValue);
+    _item.addChild(_progressValue);
     // 进度条翻起的角
     const _progressTip = new Img(imgSrc.tips, _boxX, y + _progress.height - px(40), px(40), px(40));
-    _item.addChild('_progressTip', _progressTip);
+    _item.addChild(_progressTip);
     // 进度条上的单价
     const _price = new Text(money(0), _boxX + px(50), y + px(15));
     _price.fontSize = px(30);
     _price.maxWidth = px(300);
     _price.textAlign = 'center';
-    _item.addChild('_price', _price);
+    _item.addChild(_price);
 
     // 买入数量
     const _box2Y = _progress.height + px(5);
     const _buyCount = new Img(imgSrc.count, _boxX, y + _box2Y, _boxW - px(130), height - _box2Y);
-    _item.addChild('_buyCount', _buyCount);
+    _item.addChild(_buyCount);
     const _buyCountValue = new Text('10', _boxX + px(35), y + height - px(32));
     _buyCountValue.fontSize = px(20);
     _buyCountValue.color = '#fff';
-    _item.addChild('_buyCountValue', _buyCountValue);
+    _item.addChild(_buyCountValue);
     _buyCount.bindClickEvent(() => {
     });
     window.eventbus.on('buyCountChange', ({ key }) => {
@@ -104,15 +104,15 @@ class ListItem extends Block {
 
     // 时间
     const _wasteTime = new Img(imgSrc.time, _boxX + _buyCount.width + px(5), y + _box2Y, px(125), height - _box2Y);
-    _item.addChild('_wasteTime', _wasteTime);
+    _item.addChild(_wasteTime);
     const _timeValue = new Text(second2str(data.duration), _wasteTime.x, _wasteTime.y + px(15));
     _timeValue.fontSize = px(24);
     _timeValue.color = '#fff';
     _timeValue.maxWidth = _wasteTime.width;
     _timeValue.textAlign = 'center';
-    _item.addChild('_timeValue', _timeValue);
+    _item.addChild(_timeValue);
 
-    this.addChild('_item', _item);
+    this.addChild(_item);
     _item.initChildChange();
     // ------- end 主 Item 的构成完成
 
@@ -121,22 +121,22 @@ class ListItem extends Block {
 
     // 灰色背景
     const _grayBg = new Img(imgSrc.grayBg, x, y, width, height);
-    _disableItem.addChild('_grayBg', _grayBg);
+    _disableItem.addChild(_grayBg);
     // 名称
     const _grayLabel = new Text(data.name, x + px(80), y + px(15));
     _grayLabel.fontSize = px(42);
     _grayLabel.maxWidth = width - px(140);
     _grayLabel.textAlign = 'center';
-    _disableItem.addChild('_grayLabel', _grayLabel);
+    _disableItem.addChild(_grayLabel);
     // 开启价格
     const _grayValue = new Text(money(data.activePrice), x + px(80), y + px(75));
     _grayValue.fontSize = px(30);
     _grayValue.color = '#fff';
     _grayValue.maxWidth = width - px(140);
     _grayValue.textAlign = 'center';
-    _disableItem.addChild('_grayValue', _grayValue);
+    _disableItem.addChild(_grayValue);
 
-    this.addChild('_disableItem', _disableItem);
+    this.addChild(_disableItem);
     _disableItem.initChildChange();
     _disableItem.bindClickEvent(() => {
       this.changeItemState(_item, _disableItem);
@@ -186,7 +186,7 @@ export default class IndexBody extends Scroller {
 
     itemConfig.forEach((item, index) => {
       const __y = y + index * px(190);
-      this.addChild('item' + index, new ListItem(item, x, __y, width, px(140)));
+      this.addChild(new ListItem(item, x, __y, width, px(140)));
     });
 
     this.initChildChange();

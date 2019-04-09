@@ -3,11 +3,16 @@ import Index from './pages/index.js'
 import EventBus from './libs/eventbus'
 import { setGlobalCtx } from './libs/utils.js';
 
+// 订阅发布
 const eventbus = new EventBus();
 window.eventbus = eventbus;
 
+// 全局 ctx
 let ctx   = canvas.getContext('2d')
 setGlobalCtx(ctx);
+
+// 全局组件池，将多维数据摊平为一维的，方便寻找
+window.hashMap = {};
 
 /**
  * 游戏主函数

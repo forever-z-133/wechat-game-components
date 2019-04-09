@@ -22,7 +22,7 @@ export default class Index extends Block {
     var x = new Sprite(20, 20, 50, 50);
     x.bgColor = 'red';
     x.border = '1px solid red';
-    block.addChild('x', x);
+    block.addChild(x);
     block.initChildChange();
 
     var group = new Group();
@@ -34,8 +34,8 @@ export default class Index extends Block {
     var b = new Sprite(170, 170, 50, 50);
     b.bgColor = 'orange';
     b.border = '1px solid orange';
-    group.addChild('y', y);
-    group.addChild('b', b);
+    group.addChild(y);
+    group.addChild(b);
     group.initChildChange();
     group.y -= 20;
 
@@ -54,9 +54,9 @@ export default class Index extends Block {
     rect.border = '5px solid #fff';
     var circle = new Circle(105, 300, 50);
     circle.bgColor = '#000';
-    scroller.addChild('a', a);
-    scroller.addChild('rect', rect);
-    scroller.addChild('circle', circle);
+    scroller.addChild(a);
+    scroller.addChild(rect);
+    scroller.addChild(circle);
     scroller.initChildChange();
 
     var w1 = new Text('0.00', 100, 10);
@@ -79,14 +79,14 @@ export default class Index extends Block {
     img.position = 'center';
     img.border = '1px solid #fff';
 
-    this.addChild('block', block);
-    this.addChild('group', group);
-    this.addChild('z', z);
-    this.addChild('scroller', scroller);
-    this.addChild('w1', w1);
-    this.addChild('w2', w2);
-    this.addChild('w3', w3);
-    this.addChild('img', img);
+    this.addChild(block);
+    this.addChild(group);
+    this.addChild(z);
+    this.addChild(scroller);
+    this.addChild(w1);
+    this.addChild(w2);
+    this.addChild(w3);
+    this.addChild(img);
     this.initChildChange();
 
     this.bgColor = 'grey';

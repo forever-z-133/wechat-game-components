@@ -17,18 +17,18 @@ export default class IndexBody extends Block {
     // 背景
     const _bg = new Rect(x, y + px(40), width, height - px(40));
     _bg.bgColor = '#4C3229';
-    this.addChild('_bg', _bg);
+    this.addChild(_bg);
 
     // 商店按鈕
     const _btnMenu = new Img(imgSrc.menu, px(20), y + px(70), px(220), px(80));
     _btnMenu.size = 'contain';
     _btnMenu.position = 'center';
-    this.addChild('_btnMenu', _btnMenu);
+    this.addChild(_btnMenu);
     _btnMenu.bindClickEvent(() => console.log('xxx'));
 
     // 电视
     const _btnActivity = new Img(imgSrc.tv, winW - px(250 + 30), y, px(250), px(160));
-    this.addChild('_btnActivity', _btnActivity);
+    this.addChild(_btnActivity);
     _btnActivity.bindClickEvent(() => console.log('xxx'));
 
     this.initChildChange();

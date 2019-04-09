@@ -10,7 +10,7 @@ export default class UserHistory extends Block {
 
     // 分割线
     const _line = new Rect(x, y, width, px(2));
-    this.addChild('_line', _line);
+    this.addChild(_line);
 
     this.initChildChange();
   }

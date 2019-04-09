@@ -17,22 +17,22 @@ export default class IndexSide extends Block {
     
     // 分享按钮
     const _btnShare = new Img(imgSrc.share, x, y, width, width);
-    this.addChild('_btnShare', _btnShare);
+    this.addChild(_btnShare);
     _btnShare.bindClickEvent(() => console.log('xxx'));
 
     // 解锁按钮
     const _btnOpenCup = new Img(imgSrc.cup, x, y + px(120), width, width);
-    this.addChild('_btnOpenCup', _btnOpenCup);
+    this.addChild(_btnOpenCup);
     _btnOpenCup.bindClickEvent(() => console.log('xxx'));
 
     // 升级按钮
     const _btnLevelUp = new Img(imgSrc.money, x, y + px(240), width, width);
-    this.addChild('_btnLevelUp', _btnLevelUp);
+    this.addChild(_btnLevelUp);
     _btnLevelUp.bindClickEvent(() => console.log('xxx'));
 
     // 经纪人按钮
     const _btnPatener = new Img(imgSrc.bag, x, y + px(360), width, width);
-    this.addChild('_btnPatener', _btnPatener);
+    this.addChild(_btnPatener);
     _btnPatener.bindClickEvent(() => console.log('xxx'));
 
     this.initChildChange();
