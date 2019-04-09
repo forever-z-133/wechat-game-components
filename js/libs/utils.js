@@ -176,7 +176,7 @@ export const money = (val = 0, unit = ',', fixed = 2) => {
 }
 
 /**
- * 秒数转字符串
+ * 毫秒数转字符串 6000 => 00:00:06
  */
 export const second2str = (value) => {
   value = value / 1000 >> 0;
@@ -185,6 +185,11 @@ export const second2str = (value) => {
   const second = value % 60 >> 0;
   const result = [hour, minute, second].map(x => addZero(x)).join(':');
   return result;
+}
+export const str2second = (str) => {
+  return (str || '').split(':').reverse().reduce((re, item, index) => {
+    return re + parseInt(item) * (index === 0 ? 1 : 60 * index) * 1e3;
+  }, 0);
 }
 
 /**
@@ -195,10 +200,11 @@ export const deg2rad = (deg = 0) => {
 }
 
 /**
- * 生成 hashMap 中唯一的 id，此方法仅支持 1e14 个组件哈
+ * 生成唯一的 id，相比 hashMap 不限數量
  */
-export const guid = () => {
-  const _id = Math.random().toString(16).slice(2);
-  if (_id in window.hashMap) return guid();
-  return _id;
-}
+export const guid = (() => {
+  let id = 0;
+  return function() {
+    return ++id;
+  }
+})()
