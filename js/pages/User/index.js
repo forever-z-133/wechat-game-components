@@ -25,6 +25,7 @@ export default class UserPage extends Modal {
   constructor() {
     const x = 0, y = 0, width = winW, height = winH - y;
     super(pageId, imgSrc);
+    this.pageId = pageId;
 
     // 三个 tab 对应的界面
     const _userClothes = new UserClothes(px(30), px(480), winW - px(60), winH - px(480));

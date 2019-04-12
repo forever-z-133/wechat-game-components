@@ -2,7 +2,8 @@ import Block from '../base/block';
 import Group from '../base/group';
 import Img from '../base/img';
 
-import { winW, winH, px, anim } from '../libs/utils.js';
+import { winW, winH, px, AnimTool } from '../libs/utils.js';
+const anim = new AnimTool().start;
 
 const imgSrc = {
   bg: 'images/pages-background/2.png',
@@ -12,12 +13,13 @@ const imgSrc = {
 
 export default class AchievePage extends Block {
   constructor(pageId, imgSrc) {
-    const pageName = pageId.slice(0, 1).toUpperCase() + pageId.slice(1);
     const x = 0, y = 0, width = winW, height = winH - y;
     super(x, y, width, height);
     this.bgColor = 'rgba(255, 255, 255, .5)';
 
     this.pageId = pageId;
+
+    const pageName = pageId.slice(0, 1).toUpperCase() + pageId.slice(1);
     this.pageName = pageName;
 
     // 背景图

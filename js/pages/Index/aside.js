@@ -18,7 +18,9 @@ export default class IndexSide extends Block {
     // 分享按钮
     const _btnShare = new Img(imgSrc.share, x, y, width, width);
     this.addChild(_btnShare);
-    _btnShare.bindClickEvent(() => console.log('xxx'));
+    _btnShare.bindClickEvent(() => {
+      window.eventbus.emit('showSharePage');
+    });
 
     // 解锁按钮
     const _btnOpenCup = new Img(imgSrc.cup, x, y + px(120), width, width);
@@ -38,7 +40,7 @@ export default class IndexSide extends Block {
     const _btnPatener = new Img(imgSrc.bag, x, y + px(360), width, width);
     this.addChild(_btnPatener);
     _btnPatener.bindClickEvent(() => {
-      window.eventbus.emit('showPatenerPage');
+      window.eventbus.emit('showPartnerPage');
     });
 
     this.initChildChange();

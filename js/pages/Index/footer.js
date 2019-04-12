@@ -24,7 +24,9 @@ export default class IndexBody extends Block {
     _btnMenu.size = 'contain';
     _btnMenu.position = 'center';
     this.addChild(_btnMenu);
-    _btnMenu.bindClickEvent(() => console.log('xxx'));
+    _btnMenu.bindClickEvent(() => {
+      window.eventbus.emit('showShopPage');
+    });
 
     // 电视
     const _btnActivity = new Img(imgSrc.tv, winW - px(250 + 30), y, px(250), px(160));

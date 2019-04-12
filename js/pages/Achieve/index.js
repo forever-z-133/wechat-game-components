@@ -5,8 +5,8 @@ import Img from '../../base/img';
 import { winW, winH, px, anim } from '../../libs/utils.js';
 
 const imgSrc = {
-  bg: 'images/pages-background/2.png',
-  title: 'images/pages-title/1.png',
+  bg: 'images/pages-background/3.png',
+  title: 'images/pages-title/2.png',
   back: 'images/others/3.png'
 }
 const tabConfig = [
@@ -18,8 +18,7 @@ const pageId = 'achievePage';
 export default class AchievePage extends Modal {
   constructor() {
     super(pageId, imgSrc);
-
-    this.addChild(new Img(imgSrc.title, px(0), px(200), px(200), px(200)));
+    this.pageId = pageId;
 
     // 其他
     this.initChildChange();
