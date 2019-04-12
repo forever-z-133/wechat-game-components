@@ -23,17 +23,23 @@ export default class IndexSide extends Block {
     // 解锁按钮
     const _btnOpenCup = new Img(imgSrc.cup, x, y + px(120), width, width);
     this.addChild(_btnOpenCup);
-    _btnOpenCup.bindClickEvent(() => console.log('xxx'));
+    _btnOpenCup.bindClickEvent(() => {
+      window.eventbus.emit('showAchievePage');
+    });
 
     // 升级按钮
     const _btnLevelUp = new Img(imgSrc.money, x, y + px(240), width, width);
     this.addChild(_btnLevelUp);
-    _btnLevelUp.bindClickEvent(() => console.log('xxx'));
+    _btnLevelUp.bindClickEvent(() => {
+      window.eventbus.emit('showLevelUpPage');
+    });
 
     // 经纪人按钮
     const _btnPatener = new Img(imgSrc.bag, x, y + px(360), width, width);
     this.addChild(_btnPatener);
-    _btnPatener.bindClickEvent(() => console.log('xxx'));
+    _btnPatener.bindClickEvent(() => {
+      window.eventbus.emit('showPatenerPage');
+    });
 
     this.initChildChange();
   }

@@ -1,3 +1,4 @@
+import Modal from '../modal';
 import Block from '../../base/block';
 import Group from '../../base/group';
 import Img from '../../base/img';
@@ -18,24 +19,12 @@ const tabConfig = [
   { img0: 'images/icon2/5.png', img1: 'images/icon2/2.png' },
   { img0: 'images/icon2/4.png', img1: 'images/icon2/3.png' }
 ];
+const pageId = 'userPage';
 
-export default class UserPage extends Block {
+export default class UserPage extends Modal {
   constructor() {
     const x = 0, y = 0, width = winW, height = winH - y;
-    super(x, y, width, height);
-    this.bgColor = 'rgba(255, 255, 255, .5)';
-
-    // 背景图
-    const _wrapY = px(160);
-    const _mainBg = new Img(imgSrc.bg, x, _wrapY, width, height - _wrapY);
-    this.addChild(_mainBg);
-    // 标题
-    const _mainTitle = new Img(imgSrc.title, px(30), px(80), width - px(60), px(160));
-    this.addChild(_mainTitle);
-    // 返回按钮
-    const _btnBack = new Img(imgSrc.back, px(95), px(140), px(60), px(60));
-    this.addChild(_btnBack);
-    _btnBack.bindClickEvent(() => this.close());
+    super(pageId, imgSrc);
 
     // 三个 tab 对应的界面
     const _userClothes = new UserClothes(px(30), px(480), winW - px(60), winH - px(480));
@@ -71,10 +60,9 @@ export default class UserPage extends Block {
     // 其他
     this.initChildChange();
 
-    this.activeTab(1);
-    this.visible = true;
-
-    window.eventbus.on('showUserPage', () => this.open());
+    window.eventbus.on(pageId + 'Open', () => {
+      this.activeTab(0);
+    });
   }
   activeTab(newIndex) {
     this.tabList.forEach((obj, index) => {
@@ -93,19 +81,6 @@ export default class UserPage extends Block {
         obj.activeItem.disabled = false;
         obj.target.disabled = true;
       }
-    });
-  }
-  open() {
-    this.visible = true;
-    this.y = winH;
-    anim(winH, 0, 200, (now, per) => {
-      this.y = now;
-    });
-  }
-  close() {
-    anim(0, winH, 200, (now, per) => {
-      this.y = now;
-      if (per === 1) this.visible = false;
     });
   }
 }

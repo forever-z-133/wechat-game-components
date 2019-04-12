@@ -3,6 +3,7 @@ import Img from '../base/img';
 
 import Index from './Index/index';
 import UserPage from './User/index';
+import AchievePage from './Achieve/index';
 
 import { winW, winH, px } from '../libs/utils.js';
 
@@ -21,10 +22,26 @@ export default class Pages extends Block {
     this.addChild(_mainBg);
 
     // 首页
-    this.addChild(new Index());
+    const _index = new Index();
+    _index.id = 'index';
+    this.addChild(_index);
     // 角色页
-    this.addChild(new UserPage());
+    const _userPage = new UserPage();
+    _userPage.id = 'userPage';
+    this.addChild(_userPage);
+    // 解锁页
+    const _achievePage = new AchievePage();
+    _achievePage.id = 'achievePage';
+    this.addChild(_achievePage);
 
     this.initChildChange();
+
+    // 监听路由变化，各界面间为独立互不侵犯的事件
+    window.eventbus.on('routerChange', (pageId) => {
+      window.eventbus.emit('beforeRouterChange');
+      this.child.forEach((item) => {
+        item.disabled = !(item.id === pageId);
+      });
+    });
   }
 }

@@ -17,8 +17,8 @@ export default class Group extends Sprite {
   //------------ 增删子元素
   addChild(el, description) {
     const _id = guid();
-    el.id = _id;
-    el.parentId = this.id;
+    el.guid = _id;
+    el.parentId = this.guid;
     el.description = description;
     window.hashMap[_id] = el;
     this.child.push(el);
@@ -26,14 +26,14 @@ export default class Group extends Sprite {
   }
   removeChild(id) {
     this.child = this.child.filter((item) => {
-      return id !== item.id;
+      return id !== item.guid;
     });
     delete window.hashMap[id];
     this.childReSize();
   }
   emptyChild() {
     this.child.forEach((item) => {
-      delete window.hashMap[item.id];
+      delete window.hashMap[item.guid];
     })
     this.child.length = 0;
     this.childReSize();
@@ -74,7 +74,7 @@ export default class Group extends Sprite {
     ['disabled'].forEach(key => {
       watchValueChange(this, key, (val) => {
         this.child.forEach(item => item[key] = val);
-      });
+      }, false);
     });
   }
 
