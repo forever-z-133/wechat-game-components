@@ -22,7 +22,7 @@ export default class Block extends Group {
     const { x: childX, y: childY, width: childWidth, height: childHeight } = this.childSize;
 
     // 要绘制的子级若超出了容器，则采用裁剪
-    if (x > childX || y > childY || width < childWidth || height < childHeight) {
+    if (x > childX || y > childY || x + width < childX + childWidth || y + height < childY + childHeight) {
       return canvasClip(ctx, x, y, width, height, (_tempCtx) => {
         this.child.forEach(item => { item && item.drawToCanvas(_tempCtx) });
       });

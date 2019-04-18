@@ -175,7 +175,7 @@ export const money = (val = 0, unit = ',', fixed = 2) => {
 }
 
 /**
- * 秒数转字符串
+ * 毫秒数转字符串 6000 => 00:00:06
  */
 export const second2str = (value) => {
   value = value / 1000 >> 0;
@@ -185,6 +185,11 @@ export const second2str = (value) => {
   const result = [hour, minute, second].map(x => addZero(x)).join(':');
   return result;
 }
+export const str2second = (str) => {
+  return (str || '').split(':').reverse().reduce((re, item, index) => {
+    return re + parseInt(item) * (index === 0 ? 1 : 60 * index) * 1e3;
+  }, 0);
+}
 
 /**
  * 角度转弧度，用于 arc 画圆时快速计算
@@ -192,3 +197,13 @@ export const second2str = (value) => {
 export const deg2rad = (deg = 0) => {
   return deg / 180 * Math.PI;
 }
+
+/**
+ * 生成唯一的 id，相比 hashMap 不限數量
+ */
+export const guid = (() => {
+  let id = 0;
+  return function () {
+    return ++id;
+  }
+})()

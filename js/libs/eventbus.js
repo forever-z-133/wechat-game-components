@@ -21,6 +21,7 @@ export default class EventBus {
 
   // 触发事件(发布事件)
   emit(eventType, ...args) {
+    if (!this.handlers[eventType]) return this;
     for (var i = 0; i < this.handlers[eventType].length; i++) {
       this.handlers[eventType][i].apply(this, args);
     }

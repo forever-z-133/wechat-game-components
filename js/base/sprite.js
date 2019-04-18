@@ -28,6 +28,11 @@ export default class Sprite {
         this.borderColor = color;
       });
     });
+
+    if (window.debug) {
+      const ramdomColor = '#' + Math.random().toString(16).slice(2, 8);
+      this.border = `1px solid ${ramdomColor}`;
+    }
   }
 
   /**
@@ -128,5 +133,20 @@ export default class Sprite {
     let spY = sp.y + sp.height / 2;
 
     return this.checkIsOnThisSprite(spX, spY, deviation);
+  }
+
+  // 父子兄弟组件的获取
+  getParent() {
+    return window.hashMap[this.parentId];
+  }
+  getParents(fn) {
+    let parentId = this.parentId
+    while (parentId) {
+      const parent = this.getParent();
+      if (!parent) return;
+      const stop = fn && fn(parent);
+      if (stop) return;
+      parentId = parent.parentId;
+    }
   }
 }

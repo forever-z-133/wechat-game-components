@@ -29,7 +29,6 @@ export default class Img extends Sprite {
         console.log(err);
         this.resize();
       }
-      this.img = img;
     });
     ['width', 'height', 'size', 'position'].forEach(key => {
       watchValueChange(this, key, (val) => {
@@ -52,7 +51,7 @@ export default class Img extends Sprite {
     if (!img) return;
 
     // 要绘制的图片若超出了容器，则采用裁剪
-    if (x > newImgX || y > newImgY || width < newImgWidth || height < newImgHeight) {
+    if (x > newImgX || y > newImgY || x + width < newImgX + newImgWidth || y + height < newImgY + newImgHeight) {
       return canvasClip(ctx, x, y, width, height, (_tempCtx) => {
         _tempCtx.drawImage(img, newImgX, newImgY, newImgWidth, newImgHeight);
       });
