@@ -68,6 +68,7 @@ export default class Index extends Block {
     var img = new Img(imgSrc, 270, 50, 100, 100);
     img.size = '50% 90%';
     img.position = 'center';
+    // img.boxShadow = '5px 5px #000 1px'
 
     this.addChild(block, 'block');
     this.addChild(group, 'group');

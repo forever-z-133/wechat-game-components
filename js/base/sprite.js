@@ -44,7 +44,12 @@ export default class Sprite {
   drawToCanvas(ctx) {
     if (!this.visible) return;
 
+    const { x, y, width, height, bgColor } = this;
+    ctx.rect(x, y, width, height);
+
+
     // 绘制背景色边框
+    this.drawBoxShadow(ctx);
     this.drawBgColor(ctx);
     this.drawBorder(ctx);
 
@@ -72,6 +77,20 @@ export default class Sprite {
     const boxSizingConfig = { 'content-box': borderWidth/2, 'padding-box': -borderWidth/2 };
     let { x, y, width, height } = boxGrowUp(this, boxSizingConfig[boxSizing]);
     ctx.strokeRect(x, y, width, height);
+  }
+  // 绘制阴影
+  drawBoxShadow(ctx) {
+    const { boxShadow } = this;
+    if (!boxShadow) return;
+    const _temp = boxShadow.split(' ').map((item, index) => {
+      if (index == 2) return item; else return parseInt(item, 10);
+    });
+    const [ shadowOffsetX = 0, shadowOffsetY = 0, shadowColor = '#000', shadowBlur = 3 ] = _temp;
+    const { x, y, width, height } = this;
+    ctx.shadowOffsetX = shadowOffsetX;
+    ctx.shadowOffsetY = shadowOffsetY;
+    ctx.shadowColor = shadowColor;
+    ctx.shadowBlur = shadowBlur;
   }
 
   // 元素的点击事件，由于没有原生 click 因此只能用 touch 事件模拟了
