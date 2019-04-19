@@ -16,4 +16,6 @@ window.getName = function(that) {
   return that.constructor.toString().split(/[ \()]/)[1];
 }
 
+window.debug = true;
+
 new Main()

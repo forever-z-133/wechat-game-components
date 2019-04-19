@@ -44,6 +44,8 @@ export default class Pages extends Block {
 
     this.initChildChange();
 
+    // window.eventbus.emit('showAchievePage');
+
     // 监听路由变化，各界面间为独立互不侵犯的事件
     window.eventbus.on('routerChange', (pageId) => {
       window.eventbus.emit('beforeRouterChange');

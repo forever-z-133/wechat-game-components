@@ -28,6 +28,12 @@ export default class Sprite {
         this.borderColor = color;
       });
     });
+
+    if (window.debug) {
+      const randomColor = '#' + (Math.random()).toString(16).slice(2, 8);
+      this.border = '1px solid ' + randomColor;
+      this.boxSizing = 'border-box';
+    }
   }
 
   /**
@@ -65,7 +71,7 @@ export default class Sprite {
     ctx.strokeStyle = borderColor;
     borderStyle !== 'solid' && ctx.setLineDash([borderWidth, borderWidth]); // 如果不是 solid 那就是虚线框了
     const boxSizingConfig = { 'content-box': borderWidth/2, 'padding-box': -borderWidth/2 };
-    let { x, y, width, height } = boxGrowUp(this, boxSizingConfig[boxSizing]);
+    let { x, y, width, height } = boxGrowUp(this, boxSizingConfig[boxSizing] || 0);
     ctx.strokeRect(x, y, width, height);
   }
 

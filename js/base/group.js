@@ -12,6 +12,7 @@ export default class Group extends Sprite {
     this.child = [];
     // 用来存内部元素的宽高，比如 block scroller 和 img
     this.childSize = { x: 0, y: 0, width: 0, height: 0 };
+
   }
 
   //------------ 增删子元素

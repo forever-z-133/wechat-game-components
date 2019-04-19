@@ -7,6 +7,8 @@ import UserClothes from './clothes.js';
 import UserThings from './things.js';
 import UserHistory from './history.js';
 
+import Tabs from '../tabs.js';
+
 import { winW, winH, px, anim } from '../../libs/utils.js';
 
 const imgSrc = {
@@ -36,52 +38,29 @@ export default class UserPage extends Modal {
     this.addChild(_userHistory);
 
     // 顶部三个选择
+    const tabArr = [];
     const _tabBlock = new Group();
-    const _tempArr = []
-    this.tabList = [];
     tabConfig.forEach((item, index) => {
-      const obj = { item: null, activeItem: null, target: null, active: false };
-      obj['target'] = [_userClothes, _userThings, _userHistory][index];
+      const obj = { item: undefined, activeItem: undefined, target: undefined };
+      const _width = px(180);
+      const _len = tabConfig.length;
+      const _x = (winW - _width * _len - px(50) * (_len - 1)) / 2;
       new Array(2).fill().forEach((x, i) => {
-        const __width = px(180);
-        const __x = px(50) + (winW - px(100) - __width) / 2 * index;
+        const __x = _x + (_width + px(50)) * index;
         const __y = index === 1 ? px(260) : px(300);
-        const _tab = new Img(item['img' + i], __x, __y, __width, __width);
+        const _tab = new Img(item['img' + i], __x, __y, _width, _width);
         _tab.size = 'contain';
-        _tab.position = 'center';
         _tabBlock.addChild(_tab);
         obj[i === 0 ? 'activeItem' : 'item'] = _tab;
-        _tab.bindClickEvent(() => { this.activeTab(index) });
       });
-      this.tabList.push(obj);
+      obj['target'] = [_userClothes, _userThings, _userHistory][index];
+      tabArr.push(obj);
     });
     _tabBlock.initChildChange();
     this.addChild(_tabBlock);
 
-    // 其他
-    this.initChildChange();
+    this.addChild(new Tabs(tabArr))
 
-    window.eventbus.on(pageId + 'Open', () => {
-      this.activeTab(0);
-    });
-  }
-  activeTab(newIndex) {
-    this.tabList.forEach((obj, index) => {
-      if (index === newIndex) {
-        obj.item.visible = true;
-        obj.activeItem.visible = false;
-        obj.target.visible = true;
-        obj.item.disabled = false;
-        obj.activeItem.disabled = true;
-        obj.target.disabled = false;
-      } else {
-        obj.item.visible = false;
-        obj.activeItem.visible = true;
-        obj.target.visible = false;
-        obj.item.disabled = true;
-        obj.activeItem.disabled = false;
-        obj.target.disabled = true;
-      }
-    });
+    this.initChildChange();
   }
 }

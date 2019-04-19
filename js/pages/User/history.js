@@ -12,7 +12,6 @@ const itemConfig = [
   { name: '历史解锁', value: 999 },
 ];
 
-// 包裹所有内容，相当于主路由入口
 export default class UserHistory extends Block {
   constructor(x, y, width, height) {
     super(x, y, width, height);

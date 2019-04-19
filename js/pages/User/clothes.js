@@ -3,7 +3,6 @@ import { Rect } from '../../base/shape';
 
 import { winW, winH, px } from '../../libs/utils.js';
 
-// 包裹所有内容，相当于主路由入口
 export default class UserHistory extends Block {
   constructor(x, y, width, height) {
     super(x, y, width, height);

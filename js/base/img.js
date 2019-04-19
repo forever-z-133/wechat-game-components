@@ -11,7 +11,7 @@ export default class Img extends Sprite {
     this.imgHeight = imgHeight;
     this.childSize = { x, y, width: imgWidth, height: imgHeight };
     this.size = 'full';  // 切记 size 的赋值需在 position 之前
-    this.position = 'top left';
+    this.position = 'center';
     this.repeat = 'no-repeat';
     this.resize();
 
